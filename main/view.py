@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+from utils import *
 
 main_blueprint = Blueprint("main_blueprint", __name__, template_folder='templates', url_prefix='/')
 
@@ -9,7 +10,7 @@ def main_page():
 
 
 @main_blueprint.route('/search')
-def main_page():
+def search_page():
     substr = request.args.get('s')
-
-    return render_template('index.html')
+    posts = search_post(substr)
+    return render_template('post_list.html', posts=posts, substr=substr)
